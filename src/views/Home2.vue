@@ -61,7 +61,7 @@ export default {
           title: "Third post",
           content:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, magni!",
-          upvotes: 10,
+          upvotes: 5,
           downvotes: 3,
         },
       ],
