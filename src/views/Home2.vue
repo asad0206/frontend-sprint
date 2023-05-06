@@ -22,12 +22,29 @@
                 <span>{{ post.downvotes }}</span>
               </v-col>
               <v-col class="text-right">
-                <v-btn text color="primary" v-on:click="viewPost(post)">
-                  View post
+                <v-btn text color="primary" @click="show = !show"
+                  ><v-icon>mdi-comment</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
+          <v-expand-transition>
+            <div v-show="show">
+              <v-divider></v-divider>
+              <v-card-text
+                title="Comments"
+                v-for="(comments, index) in posts"
+                :key="index"
+                class="mb-5"
+              >
+                <ul>
+                  {{
+                    comments.comments
+                  }}
+                </ul>
+              </v-card-text>
+            </div>
+          </v-expand-transition>
         </v-card>
       </v-col>
       <v-col>
@@ -43,12 +60,17 @@
 export default {
   data() {
     return {
+      show: false,
       posts: [
         {
           title: "First post",
           content: "Lorem ipsum dolor sit amet.",
           upvotes: 3,
           downvotes: 1,
+          comments: [
+            { text: "This is a great post!" },
+            { text: "Thanks for sharing!" },
+          ],
         },
         {
           title: "Second post",
@@ -56,6 +78,7 @@ export default {
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, at!",
           upvotes: 5,
           downvotes: 2,
+          comments: [{ text: "I found this post really helpful!" }],
         },
         {
           title: "Third post",
@@ -63,6 +86,7 @@ export default {
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, magni!",
           upvotes: 5,
           downvotes: 3,
+          comments: [{ text: "Nice Post" }],
         },
       ],
     };
