@@ -38,7 +38,9 @@
                 ></v-text-field>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary">Ask a Question</v-btn>
+                <v-btn color="primary" v-on:click="editor"
+                  >Ask a Question</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -70,6 +72,12 @@ export default {
     register() {
       this.$router.push({
         path: "/register",
+        replace: false,
+      });
+    },
+    editor() {
+      this.$router.push({
+        path: "/editor",
         replace: false,
       });
     },
