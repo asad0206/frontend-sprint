@@ -80,23 +80,18 @@
                 <span>{{ post.downvotes }}</span>
               </v-col>
               <v-col class="text-right">
-                <v-btn text color="primary" @click="show = !show"
-                  ><v-icon>mdi-comment</v-icon>
+                <v-btn text color="primary" @click="toggleComments(index)"><v-icon>mdi-comment</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
           <v-expand-transition>
-            <div v-show="show">
+            <div v-show="showComments[index]">
               <v-divider></v-divider>
               <v-card variant="tonal">
                 <div class="comment-section">
                   <h3>Comments</h3>
-                  <div
-                    v-for="(comment, index) in comments"
-                    :key="index"
-                    class="comment"
-                  >
+                  <div v-for="(comment, index) in comments" :key="index" class="comment">
                     <p>
                       <strong>{{ comment.author }}</strong> ({{
                         comment.timestamp
@@ -143,7 +138,7 @@
 export default {
   data() {
     return {
-      show: false,
+      showComments: [],
       comments: [],
       newComment: {
         author: "",
@@ -179,6 +174,10 @@ export default {
       ],
     };
   },
+  created() {
+  this.showComments = this.posts.map(() => false);
+},
+
   methods: {
     upvote(index) {
       this.posts[index].upvotes++;
@@ -186,8 +185,8 @@ export default {
     downvote(index) {
       this.posts[index].downvotes++;
     },
-    viewPost(post) {},
-    createPost() {},
+    viewPost(post) { },
+    createPost() { },
     addComment() {
       this.comments.push({
         author: "User",
@@ -201,6 +200,9 @@ export default {
     showReplyForm(index) {
       this.comments[index].showReplyForm = !this.comments[index].showReplyForm;
     },
+    toggleComments(index) {
+    this.$set(this.showComments, index, !this.showComments[index]);
+  },
     addReply(index) {
       this.comments[index].replyContent =
         this.comments[index].replyContent.trim();
@@ -243,7 +245,7 @@ h3 {
   font-size: 14px;
 }
 
-.comment > p:first-child {
+.comment>p:first-child {
   color: #3c3c3c;
   margin-bottom: 0.5em;
 }
