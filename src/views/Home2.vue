@@ -70,6 +70,7 @@
                     <v-btn @click="addComment">Add Comment</v-btn>
                   </div>
                 </div>
+                //you suck you die
               </v-card>
             </div>
           </v-expand-transition>
