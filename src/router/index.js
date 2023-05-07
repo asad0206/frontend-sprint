@@ -7,7 +7,7 @@ import Register from "../views/Register.vue";
 import Editor from "../components/Editor.vue";
 import Home2 from "../views/Home2.vue";
 import Login2 from "../views/Login2.vue";
-
+import CommentSection from "../views/CommentSection.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -48,6 +48,11 @@ export default new Router({
       path: "/login2",
       name: "login2",
       component: Login2,
+    },
+    {
+      path: "/comments",
+      name: "comments",
+      component: CommentSection,
     },
   ],
 });
