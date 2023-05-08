@@ -1,59 +1,59 @@
 import Vue from "vue";
-import Router from "vue-router";
-import Login from "../views/Login.vue";
-//import Dashboard from "../components/Dashboard.vue";
-import Homepage from "../views/Homepage.vue";
-import Register from "../views/Register.vue";
-import Editor from "../components/Editor.vue";
-import Home2 from "../views/Home2.vue";
-import Login2 from "../views/Login2.vue";
-import ZRegister from "../views/ZRegister.vue";
+import VueRouter from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import ErrorPage from "../views/ErrorPage.vue";
 
-Vue.use(Router);
 
-export default new Router({
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: Homepage,
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: Login,
-    },
-    // routing example for reference....
-    // {
-    //   path: "/dashboard",
-    //   name: "dashboard",
-    //   component: Dashboard,
-    //   props: {},
-    // },
-    {
-      path: "/register",
-      name: "register",
-      component: Register,
-    },
-    {
-      path: "/editor",
-      name: "editor",
-      component: Editor,
-    },
-    {
-      path: "/home2",
-      name: "home2",
-      component: Home2,
-    },
-    {
-      path: "/login2",
-      name: "login2",
-      component: Login2,
-    },
-    {
-      path: "/zr",
-      name: "zr",
-      component: ZRegister,
-    },
-  ],
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/LoginView.vue"),
+  },
+  {
+    path: "/post/create",
+    name: "create-post",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CreatePost.vue"),
+  },
+  {
+    path: "/post/edit",
+    name: "edit-post",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/EditPost.vue"),
+  },
+  {
+    path: "/message",
+    name: "message",
+    component: () =>
+      import(/* webpackChunkName: "message" */ "../views/MessageView.vue"),
+  },
+  {
+    path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/user/profile",
+    name: "UserProfile",
+    component: () => import("../views/UserProfile.vue"),
+  },
+  
+  {
+    path: "/*",
+    name: "error",
+    component: ErrorPage,
+  },
+];
+
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
 });
+
+export default router;
